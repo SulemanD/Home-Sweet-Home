@@ -1,0 +1,33 @@
+[
+    {
+        "id": "basement",
+        "name": "Damp Basement",
+        "longDesc": "A cold, moldy basement with rotting wooden beams and an eerie presence.",
+        "shortDesc": "Basement",
+        "exits": {
+            "up": "floor1_hall"
+        },
+        "items": [
+            "knife",
+            "family_photo"
+        ],
+        "npcs": [
+            "bernard"
+        ],
+        "floor": 1
+    },
+    {
+        "id": "attic",
+        "name": "Dusty Attic",
+        "longDesc": "A shadowy attic with cobweb-covered furniture. A ghost lingers here.",
+        "shortDesc": "Attic",
+        "exits": {
+            "down": "floor2_hall"
+        },
+        "items": [],
+        "npcs": [
+            "ghost"
+        ],
+        "floor": 4
+    }
+]

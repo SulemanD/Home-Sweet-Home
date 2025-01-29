@@ -1,0 +1,49 @@
+[
+    {
+        "id": "bernard",
+        "name": "Bernard",
+        "startRoom": "basement",
+        "behavior": {
+            "type": "riddle",
+            "riddles": [
+                {
+                    "question": "What has to be broken before you can use it?",
+                    "answers": [
+                        "egg"
+                    ],
+                    "onSuccess": {
+                        "action": "give_hint",
+                        "message": "Bernard says: 'Upstairs, the answer lies.'"
+                    },
+                    "onFail": {
+                        "action": "increment_attempt"
+                    }
+                }
+            ],
+            "maxAttempts": 3,
+            "onMaxAttempts": {
+                "action": "shuffle_floors",
+                "message": "Bernard laughs as the house shifts around you."
+            }
+        }
+    },
+    {
+        "id": "ghost",
+        "name": "The Ghost",
+        "startRoom": "attic",
+        "behavior": {
+            "type": "quest",
+            "objective": "Find the sentimental item.",
+            "dialogue": [
+                {
+                    "trigger": "present_correct_item",
+                    "message": "Thank you. This item meant everything to her."
+                },
+                {
+                    "trigger": "present_wrong_item",
+                    "message": "This is not what I need."
+                }
+            ]
+        }
+    }
+]
