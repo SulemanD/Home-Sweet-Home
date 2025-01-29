@@ -1,0 +1,12 @@
+{
+    "take_success": "You pick up the {item}.",
+    "take_fail": "You cannot take that.",
+    "riddle_question": "Bernard asks: \"{question}\"",
+    "riddle_correct": "Correct! Bernard nods approvingly.",
+    "riddle_incorrect": "Wrong answer! Bernard smirks.",
+    "floor_shuffled": "The house groans and shifts... the rooms are no longer the same!",
+    "ghost_hint": "The ghost whispers: \"{message}\"",
+    "ghost_correct": "The ghost smiles, his form fading as he is released from the house.",
+    "ghost_wrong": "The ghost shakes his head sadly. 'That is not what I seek.'",
+    "bernard_item_loss": "Bernard sneers and takes the {item} from you."
+}

@@ -1,0 +1,58 @@
+{
+    "verbs": {
+        "take": {
+            "description": "Pick up an item.",
+            "syntax": "take {item}",
+            "requires": {
+                "targetType": "item",
+                "isPortable": true
+            },
+            "effects": {
+                "action": "add_to_inventory"
+            },
+            "failureMessages": {
+                "notFound": "You don't see that here.",
+                "notPortable": "You can't pick that up."
+            }
+        },
+        "give": {
+            "description": "Offer an item to a character.",
+            "syntax": "give {item} to {character}",
+            "requires": {
+                "targetType": "item",
+                "characterPresent": true
+            },
+            "effects": {
+                "action": "trigger_npc_response"
+            },
+            "failureMessages": {
+                "notInInventory": "You don't have that item.",
+                "characterNotPresent": "There's no one here to give that to."
+            }
+        },
+        "go": {
+            "description": "Move to a connected room.",
+            "syntax": "go {direction}",
+            "requires": {
+                "targetType": "direction",
+                "validExit": true
+            },
+            "effects": {
+                "action": "change_room"
+            },
+            "failureMessages": {
+                "noExit": "You can't go that way."
+            }
+        },
+        "look": {
+            "description": "Look around the room or at a specific object.",
+            "syntax": "look [at {object}]",
+            "effects": {
+                "action": "describe_environment"
+            },
+            "failureMessages": {
+                "objectNotFound": "You don't see that here."
+            }
+        }
+    }
+}

@@ -1,0 +1,50 @@
+[
+    {
+        "id": "pendant",
+        "name": "Pendant",
+        "description": "A heart-shaped pendant, intricately designed with an engraving that reads 'Forever yours.'",
+        "isPortable": true,
+        "useEffect": {
+            "action": "offer_to_ghost",
+            "message": "The ghost's eyes light up as he sees the pendant."
+        }
+    },
+    {
+        "id": "family_photo",
+        "name": "Family Photo",
+        "description": "A faded photo of a smiling family, edges worn and torn.",
+        "isPortable": true,
+        "useEffect": {
+            "action": "reveal_hint",
+            "message": "The ghost whispers: 'They were my world...'"
+        }
+    },
+    {
+        "id": "toy_car",
+        "name": "Toy Car",
+        "description": "A small, red toy car with chipped paint.",
+        "isPortable": true,
+        "useEffect": {
+            "action": "reveal_hint",
+            "message": "The ghost murmurs: 'A gift for a special little boy...'"
+        }
+    },
+    {
+        "id": "knife",
+        "name": "Knife",
+        "description": "A rusted kitchen knife with a cracked wooden handle.",
+        "isPortable": true
+    },
+    {
+        "id": "lipstick",
+        "name": "Lipstick",
+        "description": "A vibrant red lipstick in a golden tube.",
+        "isPortable": true
+    },
+    {
+        "id": "gloves",
+        "name": "Gloves",
+        "description": "A pair of delicate lace gloves.",
+        "isPortable": true
+    }
+]
