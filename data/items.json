@@ -34,17 +34,60 @@
         "name": "Knife",
         "description": "A rusted kitchen knife with a cracked wooden handle.",
         "isPortable": true
+        "useEffect": {
+            "action": "reveal_hint",
+            "message": ". . . "
+        }
     },
     {
         "id": "lipstick",
         "name": "Lipstick",
         "description": "A vibrant red lipstick in a golden tube.",
         "isPortable": true
+        "useEffect": {
+            "action": "reveal_hint",
+            "message": ". . . "
+        }
     },
     {
         "id": "gloves",
         "name": "Gloves",
         "description": "A pair of delicate lace gloves.",
         "isPortable": true
-    }
+        "useEffect": {
+            "action": "reveal_hint",
+            "message": ". . . "
+        }
+    },
+    {
+        "id": "sweater",
+        "name": "Sweater"
+        "description": "A soft cashmere sweater, with a faint scent of lavender"
+        "isPortable": true
+        "useEffect": {
+            "action": "reveal_hint",
+            "message": ". . . "
+        }
+    },
+    {
+        "id": "ring"
+        "name": "Ring"
+        "description": "A generously sized stone, placed on a gold band. It looks tarnished."
+        "isPortable": true
+        "useEffect": {
+            "action": "reveal_hint",
+            "message": ". . ."
+        }
+    },  
+    {
+        "id": "purse"
+        "name": "Purse"
+        "description": "A purse, left untouched. Filled with miscellaneous items."
+        "isPortable": true
+        "useEffect": {
+            "action": "reveal_hint",
+            "message": ". . ."
+        }
+    }      
 ]
+
