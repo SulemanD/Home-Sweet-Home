@@ -49,8 +49,12 @@
         "answer": "A secret"
       },
       {
-        "question": "If you feed it, it lives; If you water it, it dies.",
+        "question": "If you feed it, it lives; If you water it, it dies",
         "answer": "Fire"
+      },
+      {
+        "question": "What begins and ends with an ‘e’ but only contains one letter?",
+        "answer": "Envelope"
       }
     ]
   }
