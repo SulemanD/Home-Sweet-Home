@@ -12,14 +12,22 @@ public class Room {
     private int floor;
     private Exits exits;
  
-    // Getters and Setters
+    // Getters and Setters]
 
-    public int getFloor(){
-        return floor;
+    public String getId(){
+        return id;
     }
 
-    public void setFloor(int floor){
-        this.floor = floor;
+    public String getName(){
+        return name;
+    }
+
+    public String getLongDesc(){
+        return longDesc;
+    }
+
+    public String getShortDesc(){
+        return shortDesc;
     }
 
     public void addItems(Item item){
@@ -37,6 +45,16 @@ public class Room {
     public List<Item> getItems() {
         return items;
     }
+
+    public Exits getExits(){
+        return exits;
+    }
+
+    public void setExits(Exits exits){
+        this.exits = exits;
+    }
+
+
 
    
 }

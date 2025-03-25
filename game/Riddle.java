@@ -1,3 +1,5 @@
+package game;
+
 public class Riddle {
     private String quesiton;
     private String answer;
