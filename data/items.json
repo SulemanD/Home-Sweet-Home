@@ -36,7 +36,7 @@
         "isPortable": true,
         "useEffect": {
             "action": "reveal_hint",
-            "message": ". . . "
+            "message": "The ghost sighs: 'I wonder what this could be for?'"
         }
     },
     {
@@ -46,7 +46,7 @@
         "isPortable": true,
         "useEffect": {
             "action": "reveal_hint",
-            "message": ". . . "
+            "message": "The ghost exclaims: 'What a pretty colour! I wonder if they still make it..."
         }
     },
     {
@@ -56,7 +56,7 @@
         "isPortable": true,
         "useEffect": {
             "action": "reveal_hint",
-            "message": ". . . "
+            "message": "The ghosts face softens: 'These would be perfect for a wedding'"
         }
     },
     {
@@ -66,7 +66,7 @@
         "isPortable": true,
         "useEffect": {
             "action": "reveal_hint",
-            "message": ". . . "
+            "message": "The ghost stares at you and smirks: 'It smells like it was just worn by...'"
         }
     },
     {
@@ -76,7 +76,7 @@
         "isPortable": true,
         "useEffect": {
             "action": "reveal_hint",
-            "message": ". . ."
+            "message": "The ghost grunts and moves closer to you. He whispers: 'Put it back.'"
         }
     },  
     {
@@ -86,7 +86,7 @@
         "isPortable": true,
         "useEffect": {
             "action": "reveal_hint",
-            "message": ". . ."
+            "message": "The ghost looks at you perplexed: 'I don't think that belongs to you?'"
         }
     }      
 ]
