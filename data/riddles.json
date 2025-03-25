@@ -11,6 +11,46 @@
       {
         "question": "I speak without a mouth and hear without ears. I have nobody, but I come alive with wind. What am I?",
         "answer": "Echo"
+      },
+      {
+        "question": " I can cry without eyes and fly without wings. What am I?",
+        "answer": "Cloud"
+      },
+      {
+        "question": "I'm tall when I'm new and short when I'm old. What am I?",
+        "answer": "Candle"
+      },
+      {
+        "question": "What can fill a room but takes up no space?",
+        "answer": "Light"
+      },
+      {
+        "question": "What can you break without touching it?",
+        "answer": "A promise"
+      },
+      {
+        "question": "It belongs to you, but your friends use it more. What is it?",
+        "answer": "Your name"
+      },
+      {
+        "question": "I weigh almost nothing, but even the world's strongest man couldn't hold me for much longer than a minute or two. What am I?",
+        "answer": "Breath"
+      },
+      {
+        "question": " I can be bitter or sweet, but I'm always a treat, and in a bar or a cake, I'm something to eat. What am I?",
+        "answer": "Chocolate"
+      },
+      {
+        "question": "I am always in front and never behind. What am I?",
+        "answer": "The future"
+      },
+      {
+        "question": "If you have me, you will want to share me. If you share me, you will no longer have me. What am I?",
+        "answer": "A secret"
+      },
+      {
+        "question": "If you feed it, it lives; If you water it, it dies.",
+        "answer": "Fire"
       }
     ]
   }
