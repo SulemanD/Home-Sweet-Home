@@ -5,6 +5,7 @@
         "longDesc": "A cold, moldy basement with rotting wooden beams and an eerie presence.",
         "shortDesc": "Basement",
         "exits": {
+            "south": "laundry_room",
             "up": "floor1_hall"
         },
         "items": [
@@ -17,11 +18,206 @@
         "floor": 1
     },
     {
+        "id": "laundry_room",
+        "name": "Dark Laundry Room",
+        "longDesc": "A cramped, musty room with a rusted washer and dryer. Clothes hang stiff with age.",
+        "shortDesc": "Laundry Room",
+        "exits": {
+            "north": "basement"
+        },
+        "items": [],
+        "npcs": [],
+        "floor": 1
+    },
+    {
+        "id": "floor1_hall",
+        "name": "Dim 1st Floor Hallway",
+        "longDesc": "The first floor surrounded with peeling wallpaper hanging like dead skin and a dimly lit hallway.",
+        "shortDesc": "Main Floor Hall",
+        "exits": {
+            "east": "floor1_bathroom",
+            "west": "living_room",
+            "up": "floor2_hall",
+            "down": "basement"
+        },
+        "items": [],
+        "npcs": [
+            "bernard"
+        ],
+        "floor": 2
+    },
+    {
+        "id": "closet",
+        "name": "Dusty Closet",
+        "longDesc": "A cramped, dark closet filled with moth-eaten coats. A faint scratching sound comes from within.",
+        "shortDesc": "Closet",
+        "exits": {
+            "south": "floor1_bathroom"
+        },
+        "items": [
+            "sweater"
+        ],
+        "npcs": [],
+        "floor": 2
+    },
+    {
+        "id": "floor1_bathroom",
+        "name": "Cracked 1st Floor Bathroom",
+        "longDesc": "A grimy bathroom with a cracked mirror and a dripping faucet that never stops.",
+        "shortDesc": "1st Floor Bathroom",
+        "exits": {
+            "north": "closet",
+            "west": "floor1_hall",
+            "south": "dining_room"
+        },
+        "items": [
+            "gloves"
+        ],
+        "npcs": [],
+        "floor": 2
+    },
+    {
+        "id": "living_room",
+        "name": "Eerie Living Room",
+        "longDesc": "A living room with sheet-covered furniture and a cold fireplace filled with ashes.",
+        "shortDesc": "Living Room",
+        "exits": {
+            "south": "kitchen",
+            "east": "floor1_hall"
+        },
+        "items": [
+            "toy_car"
+        ],
+        "npcs": [],
+        "floor": 2
+    },
+    {
+        "id": "kitchen",
+        "name": "Decaying Kitchen",
+        "longDesc": "A kitchen with rusted utensils, a cracked sink, and cabinets that creak open on their own.",
+        "shortDesc": "Kitchen",
+        "exits": {
+            "north": "living_room",
+            "east": "dining_room"
+        },
+        "items": [
+            "spoon"
+        ],
+        "npcs": [
+            "bernard"
+        ],
+        "floor": 2
+    },
+    {
+        "id": "dining_room",
+        "name": "Dusty Dining Room",
+        "longDesc": "A long wooden table covered in dust and broken glass. Chairs pulled back as if someone left in a hurry.",
+        "shortDesc": "Dining Room",
+        "exits": {
+            "west": "kitchen",
+            "north": "floor1_bathroom"
+        },
+        "items": [
+            "ring"
+        ],
+        "npcs":[],
+        "floor": 2
+    },
+    {
+        "id": "floor2_hall",
+        "name": "Silent 2nd Floor Hallway",
+        "longDesc": "A quiet hallway with torn carpets and picture frames with faces scratched out.",
+        "shortDesc": "Upstairs Hall",
+        "exits": {
+            "north": "bedroom1",
+            "south": "master_bedroom",
+            "east": "office",
+            "west": "bedroom2",
+            "up": "attic",
+            "down": "floor1_hall"
+        },
+        "items": [],
+        "npcs": [
+            "bernard"
+        ],
+        "floor": 3
+    },
+    {
+        "id": "bedroom1",
+        "name": "Child's Bedroom",
+        "longDesc": "A room with a small bed, stuffed animals missing eyes, and faded drawings pinned to the wall.",
+        "shortDesc": "Bedroom 1",
+        "exits": {
+            "east": "floor2_hall"
+        },
+        "items": [],
+        "npcs": [],
+        "floor": 3
+    },
+    {
+        "id": "bedroom2",
+        "name": "Abandoned Guest Room",
+        "longDesc": "An empty bed frame and a dusty dresser. The closet door is slightly ajar, something moves inside.",
+        "shortDesc": "Bedroom 2",
+        "exits": {
+            "east": "floor2_hall"
+        },
+        "items": [
+            "purse"
+        ],
+        "npcs": [],
+        "floor": 3
+    },
+    {
+        "id": "master_bedroom",
+        "name": "Faded Master Bedroom",
+        "longDesc": "A large bed with torn sheets and a shattered mirror reflecting something that isn’t there.",
+        "shortDesc": "Master Bedroom",
+        "exits": {
+            "north": "floor2_hall"
+        },
+        "items": [
+            "pendant"
+        ],
+        "npcs": [
+            "bernard"
+        ],
+        "floor": 3
+    },
+    {
+        "id": "office",
+        "name": "Cluttered Office",
+        "longDesc": "Stacks of papers and a typewriter with a single unfinished sentence. A strong scent of old perfume lingers.",
+        "shortDesc": "Office",
+        "exits": {
+            "north": "floor2_bathroom",
+            "west": "floor2_hall"
+        },
+        "items": [
+            "lipstick"
+        ],
+        "npcs": [],
+        "floor": 3
+    },
+    {
+        "id": "floor2_bathroom",
+        "name": "Dark 2nd Floor Bathroom",
+        "longDesc": "A suffocatingly dark bathroom, the tub filled with murky, stagnant water.",
+        "shortDesc": "2nd Floor Bathroom",
+        "exits": {
+            "south": "office"
+        },
+        "items": [],
+        "npcs": [],
+        "floor": 3
+    },
+    {
         "id": "attic",
         "name": "Dusty Attic",
         "longDesc": "A shadowy attic with cobweb-covered furniture. A ghost lingers here.",
         "shortDesc": "Attic",
         "exits": {
+            "up": "roof",
             "down": "floor2_hall"
         },
         "items": [],
@@ -29,5 +225,19 @@
             "ghost"
         ],
         "floor": 4
+    },
+    {
+        "id": "roof",
+        "name": "Creaking Rooftop",
+        "longDesc": "The wind howls across the unstable roof. The world beyond is shrouded in mist, endless and unknowable.",
+        "shortDesc": "Roof",
+        "exits": {
+            "down": "attic"
+        },
+        "items": [],
+        "npcs": [
+            "bernard"
+        ],
+        "floor": 5
     }
 ]
