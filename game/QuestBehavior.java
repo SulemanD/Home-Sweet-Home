@@ -1,36 +1,37 @@
 package game;
 
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class QuestBehavior extends Behavior{
 
-    private List<Riddle> riddles;
-    private int maxAttempts;
-    private int attempts;
-    private Random random; 
-
+    private String questItem;
     private Message message;
-    private Scanner scanner;
 
     
 
-    public QuestBehavior(List<Item> items){
-        super("quest", null, null);
-        this.random = new Random();
+    public QuestBehavior(@JsonProperty("questItem") String questItem) {
+        super("quest", -1, null, questItem);
+        this.questItem = questItem;
         this.message = new Message("../data/messages.json");
-        scanner = new Scanner(System.in);
+     
     }
 
-    public void onSuccess(){
+    public void onReceiveItem(Item item){
+        if (item.getId().equals(questItem)){
+            onSuccess();
+        }
+        else {
+            onFail();
+        }
+    }
+
+    public void onSuccess() {
         System.out.println(message.getMessage("ghost_correct"));
     }
 
-    public void onFail(){
+    public void onFail() {
         System.out.println(message.getMessage("ghost_wrong"));
     }
-
-
-    
 }
+
+

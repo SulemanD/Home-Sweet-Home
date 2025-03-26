@@ -1,30 +1,26 @@
 package game;
 
-import java.io.File;
-import java.io.IOError;
-import java.io.IOException;
 import java.util.*;
-
-import javax.naming.Reference;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public abstract class Behavior {
     private String type;
     private int maxAttempts;
     private String objective;
-    private List<String> dialogue;
     private int attempts;
     private Random random;
+    private String questItem;
     
     private RoomManager roomManager;
-    private Message message; 
+    private Message message;
 
-    public Behavior(String type, List<String> dialogue, String objective){
+    public Behavior(@JsonProperty("type") String type, @JsonProperty("maxAttempts") int maxAttempts, @JsonProperty("objective") String objective, @JsonProperty("questItem") String questItem) {
         this.type = type;
-        this.dialogue = dialogue;
         this.objective = objective;
-        
+        this.maxAttempts = maxAttempts;
+        this.questItem = questItem;
+        this.attempts = 0;
+        this.random = new Random();
     }
 
 
@@ -33,10 +29,26 @@ public abstract class Behavior {
         return this.type;
     }
 
+    public int getAttempts() {
+        return attempts;
+    }
+
+    public int getMaxAttempts() {
+        // Implementation here
+        return this.maxAttempts;
+    }
+
     public String getObjective() {
         // Implementation here
         return this.objective;
     }
+
+    public String getQuestItem() {
+        // Implementation here
+        return this.questItem;
+    }
+
+
 
     public void onSuccess() {
         

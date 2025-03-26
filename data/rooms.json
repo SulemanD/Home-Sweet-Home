@@ -12,9 +12,7 @@
             "knife",
             "family_photo"
         ],
-        "npcs": [
-            "bernard"
-        ],
+        "npcs": [],
         "floor": 1
     },
     {
@@ -41,9 +39,7 @@
             "down": "basement"
         },
         "items": [],
-        "npcs": [
-            "bernard"
-        ],
+        "npcs": [],
         "floor": 2
     },
     {
@@ -103,9 +99,7 @@
         "items": [
             "spoon"
         ],
-        "npcs": [
-            "bernard"
-        ],
+        "npcs": [],
         "floor": 2
     },
     {
@@ -137,9 +131,7 @@
             "down": "floor1_hall"
         },
         "items": [],
-        "npcs": [
-            "bernard"
-        ],
+        "npcs": [],
         "floor": 3
     },
     {
@@ -179,9 +171,7 @@
         "items": [
             "pendant"
         ],
-        "npcs": [
-            "bernard"
-        ],
+        "npcs": [],
         "floor": 3
     },
     {
@@ -240,4 +230,5 @@
         ],
         "floor": 5
     }
+    
 ]

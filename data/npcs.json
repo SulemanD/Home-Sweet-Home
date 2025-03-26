@@ -2,9 +2,11 @@
     {
         "id": "bernard",
         "name": "Bernard",
-        "startRoom": "basement",
+        "currentRoom": "basement",
         "behavior": {
             "type": "riddle",
+            "objective": "Solve the riddle.",
+            "questItem": "N/A",
             "riddles": [
                 {
                     "question": "What has to be broken before you can use it?",
@@ -30,10 +32,11 @@
     {
         "id": "ghost",
         "name": "The Ghost",
-        "startRoom": "attic",
+        "currentRoom": "attic",
         "behavior": {
             "type": "quest",
             "objective": "Find the sentimental item.",
+            "questItem": "pendant",
             "dialogue": [
                 {
                     "trigger": "present_correct_item",

@@ -3,20 +3,20 @@ package game;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Exits {
-    private String north;
-    private String south;
-    private String east;
-    private String west;
-    private String up;
-    private String down;
+    private Room north;
+    private Room south;
+    private Room east;
+    private Room west;
+    private Room up;
+    private Room down;
 
     public Exits(
-        @JsonProperty("north") String north,
-        @JsonProperty("south") String south,
-        @JsonProperty("east") String east,
-        @JsonProperty("west") String west,
-        @JsonProperty("up") String up,
-        @JsonProperty("down") String down) {
+        @JsonProperty("north") Room north,
+        @JsonProperty("south") Room south,
+        @JsonProperty("east") Room east,
+        @JsonProperty("west") Room west,
+        @JsonProperty("up") Room up,
+        @JsonProperty("down") Room down) {
         this.north = north;
         this.south = south;
         this.east = east;
@@ -25,21 +25,21 @@ public class Exits {
         this.down = down;
     }
 
-    public String getNorth() { return north; }
-    public void setNorth(String north) { this.north = north; }
+    public Room getNorth() { return north; }
+    public void setNorth(Room north) { this.north = north; }
 
-    public String getSouth() { return south; }
-    public void setSouth(String south) { this.south = south; }
+    public Room getSouth() { return south; }
+    public void setSouth(Room south) { this.south = south; }
 
-    public String getEast() { return east; }
-    public void setEast(String east) { this.east = east; }
+    public Room getEast() { return east; }
+    public void setEast(Room east) { this.east = east; }
 
-    public String getWest() { return west; }
-    public void setWest(String west) { this.west = west; }
+    public Room getWest() { return west; }
+    public void setWest(Room west) { this.west = west; }
 
-    public String getUp() { return up; }
-    public void setUp(String up) { this.up = up; }
+    public Room getUp() { return up; }
+    public void setUp(Room up) { this.up = up; }
     
-    public String getDown() { return down; }
-    public void setDown(String down) { this.down = down; }
+    public Room getDown() { return down; }
+    public void setDown(Room down) { this.down = down; }
 }

@@ -2,39 +2,42 @@ package game;
 
 import java.util.*;
 
-import javax.swing.SizeRequirements;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.File;
 import java.io.IOException;
-import java.net.http.WebSocket.Listener;
 
 public class RoomManager{
 
     private List<Room> rooms;
+    private Map<String, Room> roomMap;
     private List<Item> itemsList;
-    private String jsonFilePath;
     private Random random;
+    private String roomsJson;
+    private String itemsJson;
 
-    public RoomManager(String jsonFilePath){
+    public RoomManager(){
 
-        this.jsonFilePath = jsonFilePath;
+
         this.rooms = new ArrayList<>();
-        this.random = new Random();
-        
-        loadRooms();
+        this.roomMap = new HashMap<>();
+        this.random = new Random();        
+        loadRoomsWithoutExits();
         loadItems();
         
     }
 
-    public void loadRooms(){
+    public void loadRoomsWithoutExits(){
         try{
 
             ObjectMapper objectMapper = new ObjectMapper();
-            rooms = objectMapper.readValue(new File("../data/rooms.json"), new TypeReference<List<Room>>() {});
+            rooms = objectMapper.readValue(new File("data/rooms.json"), TypeFactory.defaultInstance().constructCollectionType(List.class, Room.class));
 
-            shuffleItems();
+            for (Room room : rooms) {
+                roomMap.put(room.getId(), room);
+                System.out.println("Loaded: " + room.getId());
+            }
 
         } catch (IOException e){
             e.printStackTrace();
@@ -47,7 +50,11 @@ public class RoomManager{
         try{
 
             ObjectMapper objectMapper = new ObjectMapper();
-            itemsList = objectMapper.readValue(new File("../data/items.json"), new TypeReference<List<Item>>() {});
+            itemsList = objectMapper.readValue(new File("data/items.json"), new TypeReference<List<Item>>() {});
+
+            for (Item item : itemsList) {
+                System.out.println("Loaded: " + item.getName());
+            }
 
         } catch (IOException e){
             e.printStackTrace();
@@ -64,6 +71,7 @@ public class RoomManager{
     }
 
     public void shuffleItems(){
+
         List<Item> availabelItems = new ArrayList<>();
         // Add all items that are not disabled to the available items list
         for (Item item : itemsList) {
@@ -141,9 +149,10 @@ public class RoomManager{
 
         // Set the exits of the current room
         currentRoom.setExits(currentExits);
+        }
     }
-        
-    }
+
+    
 
 
     

@@ -19,21 +19,21 @@ public class RiddleBehavior extends Behavior{
 
     
 
-    public RiddleBehavior(List<Riddle> riddles, int maxAttempts){
-        super("riddle", null, null);
-        loadRiddlesFromJson("../data/riddles");
+    public RiddleBehavior(int maxAttempts){
+        super("riddle", maxAttempts, "Solve the riddle" , null);
+        loadRiddlesFromJson();
         this.attempts = 0;
         this.random = new Random();
-        this.roomManager = new RoomManager("../data/rooms.json");
+        this.roomManager = new RoomManager();
         this.message = new Message("../data/messages.json");
         scanner = new Scanner(System.in);
         
     }
     
-    public void loadRiddlesFromJson(String jsonFilePath){
+    public void loadRiddlesFromJson(){
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            this.riddles = objectMapper.readValue(new File(jsonFilePath),  objectMapper.getTypeFactory().constructCollectionType(List.class, Riddle.class));
+            this.riddles = objectMapper.readValue(new File("../data/riddles.json"),  objectMapper.getTypeFactory().constructCollectionType(List.class, Riddle.class));
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -52,7 +52,7 @@ public class RiddleBehavior extends Behavior{
         Riddle currentRiddle = riddles.get(random.nextInt(riddles.size()));
         System.out.println(message.getMessage("riddle_question") + currentRiddle.getQuestion());
 
-        if (scanner.nextLine().toLowerCase()==currentRiddle.getAnswer()){
+        if (scanner.nextLine().toLowerCase().equals(currentRiddle.getAnswer())){
             onSuccess();
         }
         else {
@@ -70,6 +70,7 @@ public class RiddleBehavior extends Behavior{
         System.out.println(message.getMessage("benared_item_loss"));
         System.out.println(message.getMessage("floor_shuffled"));
         roomManager.shuffleRooms();
+        roomManager.shuffleItems();
 
     }
     
