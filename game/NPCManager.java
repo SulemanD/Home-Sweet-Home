@@ -18,7 +18,7 @@ public class NPCManager {
     public void loadNPCs() {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            List<NPC> npcList = objectMapper.readValue(new File("../data/npcs.json"), new TypeReference<List<NPC>>() {});
+            List<NPC> npcList = objectMapper.readValue(new File("data/npcs.json"), new TypeReference<List<NPC>>() {});
 
             // Process each NPC object and create the corresponding NPC with behavior
             for (NPC npc : npcList) {

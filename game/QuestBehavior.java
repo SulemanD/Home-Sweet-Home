@@ -12,7 +12,7 @@ public class QuestBehavior extends Behavior{
     public QuestBehavior(@JsonProperty("questItem") String questItem) {
         super("quest", -1, null, questItem);
         this.questItem = questItem;
-        this.message = new Message("../data/messages.json");
+        this.message = new Message("data/messages.json");
      
     }
 

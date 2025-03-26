@@ -6,6 +6,7 @@ import java.util.*;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 
 public class Verb {
 
@@ -16,7 +17,7 @@ public class Verb {
 
     private Room currentRoom;
     private Message message;
-
+    private List<Item> itemsList;
     private Map<String, Item> items = new HashMap<>();
     
  
@@ -27,16 +28,19 @@ public class Verb {
         this.currentRoom = currentRoom;
         parseInput(input);
         this.player = player;
-        this.message = new Message("../data/messages.json");
+        this.message = new Message("data/messages.json");
     }
 
-    public void loadItems(){
-        try{
-
+    public void loadItems() {
+        try {
             ObjectMapper objectMapper = new ObjectMapper();
-            items = objectMapper.readValue(new File("../data/items.json"), new TypeReference<Map<String, Item>>() {});
+            itemsList = objectMapper.readValue(new File("data/items.json"), 
+                TypeFactory.defaultInstance().constructCollectionType(List.class, Item.class));
 
-        } catch (IOException e){
+            for (Item item : itemsList) {
+                items.put(item.getId(), item);
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

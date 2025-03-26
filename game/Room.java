@@ -25,7 +25,7 @@ public class Room {
         this.longDesc = longDesc;
         this.shortDesc = shortDesc;
         this.items = new ArrayList<>();
-        this.exits = exits;
+        this.exits = null;
     }
 
     public String getId(){

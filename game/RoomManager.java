@@ -16,15 +16,20 @@ public class RoomManager{
     private Random random;
     private String roomsJson;
     private String itemsJson;
+    private static Map<String, Item> itemRegistry;
 
     public RoomManager(){
 
 
         this.rooms = new ArrayList<>();
         this.roomMap = new HashMap<>();
-        this.random = new Random();        
-        loadRoomsWithoutExits();
+        this.random = new Random();
+        this.itemRegistry = new HashMap<>();
+        this.itemsList = new ArrayList<>();
         loadItems();
+        loadRoomsWithoutExits();
+        assignExits();
+        
         
     }
 
@@ -46,19 +51,47 @@ public class RoomManager{
         
     }
 
-    public void loadItems(){
-        try{
+    public void assignExits(){
+        for (Room room : rooms) {
+            Exits exits = room.getExits();
+            if (exits.getNorth() != null){
+                room.getExits().setNorth(roomMap.get(exits.getNorth()));
+            }
+            if (exits.getSouth() != null){
+                room.getExits().setSouth(roomMap.get(exits.getSouth()));
+            }
+            if (exits.getEast() != null){
+                room.getExits().setEast(roomMap.get(exits.getEast()));
+            }
+            if (exits.getWest() != null){
+                room.getExits().setWest(roomMap.get(exits.getWest()));
+            }
+            if (exits.getUp() != null){
+                room.getExits().setUp(roomMap.get(exits.getUp()));
+            }
+            if (exits.getDown() != null){
+                room.getExits().setDown(roomMap.get(exits.getDown()));
+            }
+        }
+    }
 
+    public void loadItems() {
+        try {
             ObjectMapper objectMapper = new ObjectMapper();
-            itemsList = objectMapper.readValue(new File("data/items.json"), new TypeReference<List<Item>>() {});
+            itemsList = objectMapper.readValue(new File("data/items.json"), 
+                TypeFactory.defaultInstance().constructCollectionType(List.class, Item.class));
 
             for (Item item : itemsList) {
-                System.out.println("Loaded: " + item.getName());
+                itemRegistry.put(item.getId(), item);
+                System.out.println("Loaded item: " + item.getName());
             }
-
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Item getItemById(String itemId) {
+        return itemRegistry.get(itemId);
     }
 
     public Room getRoom(String id){

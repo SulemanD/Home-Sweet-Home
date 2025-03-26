@@ -25,7 +25,7 @@ public class RiddleBehavior extends Behavior{
         this.attempts = 0;
         this.random = new Random();
         this.roomManager = new RoomManager();
-        this.message = new Message("../data/messages.json");
+        this.message = new Message("data/messages.json");
         scanner = new Scanner(System.in);
         
     }
@@ -33,7 +33,7 @@ public class RiddleBehavior extends Behavior{
     public void loadRiddlesFromJson(){
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            this.riddles = objectMapper.readValue(new File("../data/riddles.json"),  objectMapper.getTypeFactory().constructCollectionType(List.class, Riddle.class));
+            this.riddles = objectMapper.readValue(new File("data/riddles.json"),  objectMapper.getTypeFactory().constructCollectionType(List.class, Riddle.class));
         } catch (IOException e){
             e.printStackTrace();
         }

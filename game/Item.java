@@ -14,7 +14,7 @@ public class Item {
     private boolean disable;
     private List<String> canGiveTo;
     
-    private Message message = new Message("../data/messages.json");
+    private Message message = new Message("data/messages.json");
 
     @JsonCreator
     public Item(

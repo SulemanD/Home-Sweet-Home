@@ -1,9 +1,13 @@
 package game;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        
         // Load the game data
         RoomManager roomManager = new RoomManager();
         Player player = new Player(roomManager.getRoom("basement"));
@@ -26,5 +30,6 @@ public class Main {
         }
 
         scanner.close();
-    }
+    } 
+    
 }
