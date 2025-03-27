@@ -11,7 +11,8 @@ public class Main {
         // Load the game data
         RoomManager roomManager = new RoomManager();
         Player player = new Player(roomManager.getRoom("basement"));
-        NPCManager npcManager = new NPCManager();
+        NPCManager npcManager = new NPCManager(roomManager); // Pass roomManager to NPCManager
+        npcManager.loadNPCs();
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to the Adventure Game! Type 'help' for commands.");

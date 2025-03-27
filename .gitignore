@@ -1,0 +1,33 @@
+# Maven target directory
+/target/
+
+# Logs
+*.log
+
+# IntelliJ IDEA files
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Eclipse files (just in case)
+.classpath
+.project
+.settings/
+
+# Build output
+*.class
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment / config files
+.env
+*.local
+*.swp
+
+# Maven wrapper
+.mvn/
+mvnw
+mvnw.cmd
