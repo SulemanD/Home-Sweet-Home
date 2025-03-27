@@ -3,12 +3,20 @@ package game;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Exits {
-    private String north;
+    private String north; // Keep as String for JSON deserialization
     private String south;
     private String east;
     private String west;
     private String up;
     private String down;
+    
+    // Actual Room references (not serialized)
+    private transient Room northRoom;
+    private transient Room southRoom;
+    private transient Room eastRoom;
+    private transient Room westRoom;
+    private transient Room upRoom;
+    private transient Room downRoom;
 
     public Exits(
         @JsonProperty("north") String north,
@@ -25,21 +33,27 @@ public class Exits {
         this.down = down;
     }
 
+    // String getters - for original IDs from JSON
     public String getNorth() { return north; }
-    public void setNorth(String north) { this.north = north; }
-
     public String getSouth() { return south; }
-    public void setSouth(String south) { this.south = south; }
-
     public String getEast() { return east; }
-    public void setEast(String east) { this.east = east; }
-
     public String getWest() { return west; }
-    public void setWest(String west) { this.west = west; }
-
     public String getUp() { return up; }
-    public void setUp(String up) { this.up = up; }
-    
     public String getDown() { return down; }
-    public void setDown(String down) { this.down = down; }
+    
+    // Room getters - for actual room references
+    public Room getNorthRoom() { return northRoom; }
+    public Room getSouthRoom() { return southRoom; }
+    public Room getEastRoom() { return eastRoom; }
+    public Room getWestRoom() { return westRoom; }
+    public Room getUpRoom() { return upRoom; }
+    public Room getDownRoom() { return downRoom; }
+    
+    // Room setters
+    public void setNorth(Room room) { this.northRoom = room; }
+    public void setSouth(Room room) { this.southRoom = room; }
+    public void setEast(Room room) { this.eastRoom = room; }
+    public void setWest(Room room) { this.westRoom = room; }
+    public void setUp(Room room) { this.upRoom = room; }
+    public void setDown(Room room) { this.downRoom = room; }
 }

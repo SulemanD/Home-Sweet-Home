@@ -2,7 +2,19 @@ package game;
 
 import java.util.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "type",
+    visible = true
+)
+@JsonSubTypes({
+    @JsonSubTypes.Type(value = RiddleBehavior.class, name = "riddle"),
+    @JsonSubTypes.Type(value = QuestBehavior.class, name = "quest")
+})
 public abstract class Behavior {
     private String type;
     private int maxAttempts;
@@ -23,9 +35,11 @@ public abstract class Behavior {
         this.random = new Random();
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getType() {
-        // Implementation here
         return this.type;
     }
 
@@ -34,27 +48,20 @@ public abstract class Behavior {
     }
 
     public int getMaxAttempts() {
-        // Implementation here
         return this.maxAttempts;
     }
 
     public String getObjective() {
-        // Implementation here
         return this.objective;
     }
 
     public String getQuestItem() {
-        // Implementation here
         return this.questItem;
     }
 
-
-
     public void onSuccess() {
-        
     }
  
     public void onFail() {
     }
-
 }

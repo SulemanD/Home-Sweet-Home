@@ -10,18 +10,30 @@ public class NPC {
     private String id;
     private String name;
     private Room currentRoom;
+    private String roomId; // New field to store the room ID from JSON
     private Behavior behavior;
     private String questItem;
     private Random random;
 
-    // Constructor-based injection with @JsonProperty
+    // Constructor for Jackson deserialization
     @JsonCreator
     public NPC(
         @JsonProperty("id") String id,
         @JsonProperty("name") String name,
-        @JsonProperty("currentRoom") Room currentRoom,
+        @JsonProperty("currentRoom") String roomId,
         @JsonProperty("behavior") Behavior behavior
     ) {
+        this.id = id;
+        this.name = name;
+        this.roomId = roomId; // Store the room ID string
+        this.behavior = behavior;
+        this.questItem = behavior.getQuestItem();
+        this.random = new Random();
+        // Room will be resolved later using RoomManager
+    }
+    
+    // Constructor for direct object creation
+    public NPC(String id, String name, Room currentRoom, Behavior behavior) {
         this.id = id;
         this.name = name;
         this.currentRoom = currentRoom;
@@ -30,7 +42,17 @@ public class NPC {
         this.random = new Random();
     }
 
-    // No getters or setters are needed
+    // Method to resolve room from ID
+    public void resolveRoom(RoomManager roomManager) {
+        if (roomId != null && currentRoom == null) {
+            this.currentRoom = roomManager.getRoom(roomId);
+        }
+    }
+
+    public String getRoomId() {
+        return roomId;
+    }
+
     public String getId() {
         return id;
     }
@@ -58,9 +80,5 @@ public class NPC {
         // Implementation here
         List<Room> connectedRooms = currentRoom.getConnectedRooms();
         currentRoom = connectedRooms.get(random.nextInt(connectedRooms.size()));
-               
     }
-
-
-
 }

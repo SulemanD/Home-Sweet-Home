@@ -20,15 +20,13 @@ public class Verb {
     private List<Item> itemsList;
     private Map<String, Item> items = new HashMap<>();
     
- 
-    
-
     public Verb(String input, Room currentRoom, Player player){
         this.input = input.trim().toLowerCase();
         this.currentRoom = currentRoom;
         parseInput(input);
         this.player = player;
         this.message = new Message("data/messages.json");
+        loadItems(); // Add this line to load items when Verb is constructed
     }
 
     public void loadItems() {
@@ -69,19 +67,22 @@ public class Verb {
             case "look":
                 lookAction();
                 break;
+            case "talk":
+                talkAction();
+                break;
             case "help":
                 System.out.println("List of commands: \n" +
                 "take <item> - take an item\n" +
                 "give <item> to <character> - give an item\n" +
                 "go <direction> - go in a direction\n" +
                 "look <item> - look at an item\n" +
+                "talk <character> - talk to a character\n" +
                 "help - list of commands\n");
                 break;
             default:
                 System.out.println("Invalid command, type 'help' for a list of commands");
                 break;
         }
-
     }
 
     public String getVerb(){
@@ -114,34 +115,33 @@ public class Verb {
             items.get(target).disableItem();
             return null;
         }
-
     }
 
     public void goAction(){
-        if(target.contains("north") && player.getCurrentRoom().getExits().getNorth() != null){
+        if(target.contains("north") && player.getCurrentRoom().getExits().getNorthRoom() != null){
             //go north
-            player.setCurrentRoom(currentRoom.getExits().getNorth());
+            player.setCurrentRoom(currentRoom.getExits().getNorthRoom());
             System.out.println(message.getMessage("move_sucess"));
         }
-        else if(target.contains("south") && player.getCurrentRoom().getExits().getSouth() != null){
+        else if(target.contains("south") && player.getCurrentRoom().getExits().getSouthRoom() != null){
             //go south
-            player.setCurrentRoom(currentRoom.getExits().getSouth());
+            player.setCurrentRoom(currentRoom.getExits().getSouthRoom());
         }
-        else if(target.contains("up") && player.getCurrentRoom().getExits().getUp() != null){
+        else if(target.contains("up") && player.getCurrentRoom().getExits().getUpRoom() != null){
             //go up
-            player.setCurrentRoom(currentRoom.getExits().getUp());
+            player.setCurrentRoom(currentRoom.getExits().getUpRoom());
         }
-        else if(target.contains("down") && player.getCurrentRoom().getExits().getDown() != null){
+        else if(target.contains("down") && player.getCurrentRoom().getExits().getDownRoom() != null){
             //go down
-            player.setCurrentRoom(currentRoom.getExits().getDown());
+            player.setCurrentRoom(currentRoom.getExits().getDownRoom());
         }
-        else if(target.contains("east") && player.getCurrentRoom().getExits().getEast() != null){
+        else if(target.contains("east") && player.getCurrentRoom().getExits().getEastRoom() != null){
             //go east
-            player.setCurrentRoom(currentRoom.getExits().getEast());
+            player.setCurrentRoom(currentRoom.getExits().getEastRoom());
         }
-        else if(target.contains("west") && player.getCurrentRoom().getExits().getWest() != null){
+        else if(target.contains("west") && player.getCurrentRoom().getExits().getWestRoom() != null){
             //go west
-            player.setCurrentRoom(currentRoom.getExits().getWest());
+            player.setCurrentRoom(currentRoom.getExits().getWestRoom());
         }
         else{
             System.out.println(message.getMessage("no_exit"));
@@ -149,19 +149,116 @@ public class Verb {
     }
 
     public void lookAction(){
-        //look at target
-        if(items.containsKey(target) && currentRoom.getItems().contains(items.get(target))){
+        // If a target is specified, look at that item
+        if(target != null && items.containsKey(target) && currentRoom.getItems().contains(items.get(target))){
             System.out.println(items.get(target).getDescription());
-        }
-        else{
-            System.out.println(message.getMessage(currentRoom.getLongDesc()));
+        } 
+        // Otherwise, look at the room
+        else {
+            // Display room description
+            System.out.println(currentRoom.getLongDesc());
+            
+            // Display items in the room
+            if (!currentRoom.getItems().isEmpty()) {
+                System.out.println("\nYou see the following items:");
+                for (Item item : currentRoom.getItems()) {
+                    System.out.println("- " + item.getName());
+                }
+            }
+            
+            // Display NPCs in the room
+            List<NPC> npcsInRoom = getNPCsInCurrentRoom();
+            if (npcsInRoom != null && !npcsInRoom.isEmpty()) {
+                System.out.println("\nYou see the following characters:");
+                for (NPC npc : npcsInRoom) {
+                    System.out.println("- " + npc.getName());
+                }
+            }
         }
     }
-
     
-
-
+    private List<NPC> getNPCsInCurrentRoom() {
+        List<NPC> npcsInRoom = new ArrayList<>();
+        
+        // Make sure NPCManager.getInstance() is not null
+        NPCManager npcManager = NPCManager.getInstance();
+        if (npcManager == null) {
+            System.out.println("Warning: NPC Manager not initialized");
+            return npcsInRoom;
+        }
+        
+        // Make sure getNpcs() does not return null
+        List<NPC> allNpcs = npcManager.getNpcs();
+        if (allNpcs == null) {
+            System.out.println("Warning: No NPCs loaded");
+            return npcsInRoom;
+        }
+        
+        // Now safely iterate through NPCs
+        for (NPC npc : allNpcs) {
+            if (npc != null && npc.getRoomId() != null && 
+                npc.getRoomId().equals(currentRoom.getId())) {
+                npcsInRoom.add(npc);
+            }
+        }
+        
+        return npcsInRoom;
+    }
     
-
+    public void talkAction() {
+        if (target == null) {
+            System.out.println("Who do you want to talk to?");
+            return;
+        }
+        
+        List<NPC> npcsInRoom = getNPCsInCurrentRoom();
+        if (npcsInRoom == null || npcsInRoom.isEmpty()) {
+            System.out.println("There's nobody here to talk to.");
+            return;
+        }
+        
+        // Find the NPC by name (case-insensitive comparison)
+        NPC targetNPC = null;
+        for (NPC npc : npcsInRoom) {
+            if (npc.getName().toLowerCase().contains(target.toLowerCase())) {
+                targetNPC = npc;
+                break;
+            }
+        }
+        
+        if (targetNPC == null) {
+            System.out.println("You don't see anyone by that name here.");
+            return;
+        }
+        
+        // Handle different NPC behavior types
+        Behavior behavior = targetNPC.getBehavior();
+        if (behavior != null) {
+            // Display the NPC's name for dialogue (since getDialogue isn't available)
+            System.out.println(targetNPC.getName() + " turns to face you.");
+            
+            // Check behavior type
+            if ("riddle".equalsIgnoreCase(behavior.getType())) {
+                // For riddle-type NPCs, display the behavior information
+                try {
+                    System.out.println(targetNPC.getName() + " says: \"I have a riddle for you.\"");
+                    System.out.println("Riddle: " + behavior.toString());
+                    System.out.println("(Type your answer directly)");
+                } catch (Exception e) {
+                    System.out.println("The " + targetNPC.getName() + " seems confused and doesn't offer a riddle.");
+                }
+            } else if ("quest".equalsIgnoreCase(behavior.getType())) {
+                // For quest-type NPCs, provide appropriate feedback
+                System.out.println(targetNPC.getName() + " says: \"I need your help with something.\"");
+                System.out.println("You sense " + targetNPC.getName() + " has a quest for you.");
+            } else {
+                // Generic dialogue
+                System.out.println(targetNPC.getName() + " says: \"Hello there.\"");
+            }
+        } else {
+            // Default dialogue
+            System.out.println(targetNPC.getName() + " doesn't seem interested in talking.");
+        }
+    }
 }
 

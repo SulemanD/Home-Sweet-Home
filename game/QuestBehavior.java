@@ -1,19 +1,31 @@
 package game;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class QuestBehavior extends Behavior{
 
     private String questItem;
     private Message message;
 
-    
+    @JsonCreator
+    public QuestBehavior(
+        @JsonProperty("type") String type,
+        @JsonProperty("maxAttempts") int maxAttempts,
+        @JsonProperty("objective") String objective,
+        @JsonProperty("questItem") String questItem) {
+        super(type, maxAttempts, objective, questItem);
+        this.questItem = questItem;
+        this.message = new Message("data/messages.json");
+    }
 
-    public QuestBehavior(@JsonProperty("questItem") String questItem) {
+    // Keep existing constructor for programmatic creation
+    public QuestBehavior(String questItem) {
         super("quest", -1, null, questItem);
         this.questItem = questItem;
         this.message = new Message("data/messages.json");
-     
     }
 
     public void onReceiveItem(Item item){
