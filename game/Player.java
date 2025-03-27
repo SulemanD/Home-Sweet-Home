@@ -10,7 +10,7 @@ public class Player {
     private Room currentRoom; // Current room of the player
     private List<Item> inventory; // List to store items
 
-    public Player(@JsonProperty("staringRoom") Room currentRoom) {
+    public Player(@JsonProperty("startingRoom") Room currentRoom) {
         this.currentRoom = currentRoom;
         this.inventory = new ArrayList<>(); // Initialize inventory
     }

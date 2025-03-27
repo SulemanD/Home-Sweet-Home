@@ -3,6 +3,7 @@
         "id": "bernard",
         "name": "Bernard",
         "currentRoom": "basement",
+        "canMove": true,
         "behavior": {
             "type": "riddle",
             "objective": "Solve the riddle.",
@@ -33,6 +34,7 @@
         "id": "ghost",
         "name": "The Ghost",
         "currentRoom": "attic",
+        "canMove": false,
         "behavior": {
             "type": "quest",
             "objective": "Find the sentimental item.",

@@ -3,7 +3,7 @@
     "take_fail": "You cannot take that.",
     "no_exit": "There is no exit in that direction.",
     "move_success": "You move to the {currentRoom}.",
-    "riddle_question": "Bernard asks: \"{question}\"",
+    "riddle_question": "Bernard asks: \"{riddle}\"",
     "riddle_correct": "Correct! Bernard nods approvingly.",
     "riddle_incorrect": "Wrong answer! Bernard smirks.",
     "rooms_shuffled": "The house groans and shifts... the rooms are no longer the same!",

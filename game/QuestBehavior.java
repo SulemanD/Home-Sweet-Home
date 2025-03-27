@@ -39,6 +39,8 @@ public class QuestBehavior extends Behavior{
 
     public void onSuccess() {
         System.out.println(message.getMessage("ghost_correct"));
+        System.out.println("Congratulations! You have completed the quest. The game will now exit.");
+        System.exit(0);
     }
 
     public void onFail() {

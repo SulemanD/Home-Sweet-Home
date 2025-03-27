@@ -17,6 +17,7 @@ public class RiddleBehavior extends Behavior{
     private int maxAttempts;
     private int attempts;
     private Random random; 
+    private int cooldown;
 
     private Message message;
     private RoomManager roomManager;
@@ -32,15 +33,14 @@ public class RiddleBehavior extends Behavior{
         @JsonProperty("riddles") List<Riddle> riddles) {
         super(type, maxAttempts, objective, questItem);
         this.maxAttempts = maxAttempts;
-        this.riddles = riddles != null ? riddles : new ArrayList<>();
+        this.riddles = new ArrayList<>(); // Initialize empty list
         this.attempts = 0;
         this.random = new Random();
         this.roomManager = new RoomManager();
         this.message = new Message("data/messages.json");
         scanner = new Scanner(System.in);
-        if (riddles == null) {
-            loadRiddlesFromJson();
-        }
+        loadRiddlesFromJson(); // Always load riddles from riddles.json
+        this.cooldown = 0;
     }
 
     // Keep the existing constructor for programmatic creation
@@ -69,36 +69,72 @@ public class RiddleBehavior extends Behavior{
         }
     }
 
+    public void decaCooldown(){
+        if (cooldown > 0) {cooldown--;}
+    }
+
     public void onSuccess(){
         System.out.println(message.getMessage("riddle_correct"));
+        cooldown = 3;
     }
     
     public void onFail(){
         System.out.println(message.getMessage("riddle_incorrect"));
     }
 
-    public void askRiddle(){
-        Riddle currentRiddle = riddles.get(random.nextInt(riddles.size()));
-        System.out.println(message.getMessage("riddle_question") + currentRiddle.getQuestion());
+    public void interact(Player player){
+        askRiddle();
+    }
 
-        // Use the new isCorrectAnswer method instead of direct string comparison
-        String userAnswer = scanner.nextLine().toLowerCase();
-        if (currentRiddle.isCorrectAnswer(userAnswer)){
+    public void askRiddle() {
+        if (cooldown == 0) {
+            if (riddles.isEmpty()) {
+                System.out.println("No riddles available.");
+                return;
+            }
+            Riddle currentRiddle = riddles.get(random.nextInt(riddles.size())); // Randomize riddle
+
+            // Prepare placeholders for the riddle question
+            Map<String, String> placeholders = new HashMap<>();
+            placeholders.put("riddle", currentRiddle.getQuestion());
+
+            // Format and display the riddle question
+            System.out.println(message.getFormattedMessage("riddle_question", placeholders));
+
+            // Get the user's answer and validate it
+            String userAnswer = scanner.nextLine().trim();
+            while (!currentRiddle.isCorrectAnswer(userAnswer)) {
+                onFail();
+                attempts++;
+                if (attempts == maxAttempts) {
+                    onMaxAttempts();
+                    return;
+                }
+                userAnswer = scanner.nextLine().trim();
+            }
             onSuccess();
-        }
-        else {
-            onFail();
-            attempts++;
-            if (attempts == maxAttempts){onMaxAttempts();}
         }
     }
 
     public void onMaxAttempts() {
-        // Implementation here
-        System.out.println("Max attempts reached");
-        System.out.println(message.getMessage("benared_item_loss"));
-        System.out.println(message.getMessage("floor_shuffled"));
+        // Prepare placeholders for the messages
+        Map<String, String> placeholders = new HashMap<>();
+        placeholders.put("item", "some item"); // Replace with actual item if needed
+
+        // Display formatted messages
+        System.out.println(message.getFormattedMessage("bernard_item_loss", placeholders));
+        System.out.println(message.getMessage("rooms_shuffled"));
+        cooldown = 3;
+
+        // Shuffle rooms and ensure changes are applied
         roomManager.shuffleRooms();
-        roomManager.shuffleItems();
+        roomManager.assignExits(); // Reassign exits after shuffling
+    }
+
+    public Riddle getCurrentRiddle() {
+        if (riddles != null && !riddles.isEmpty()) {
+            return riddles.get(0); // Return the first riddle for simplicity
+        }
+        return null;
     }
 }

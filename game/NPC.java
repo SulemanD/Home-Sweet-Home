@@ -1,5 +1,6 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -14,6 +15,7 @@ public class NPC {
     private Behavior behavior;
     private String questItem;
     private Random random;
+    private boolean canMove;
 
     // Constructor for Jackson deserialization
     @JsonCreator
@@ -21,7 +23,8 @@ public class NPC {
         @JsonProperty("id") String id,
         @JsonProperty("name") String name,
         @JsonProperty("currentRoom") String roomId,
-        @JsonProperty("behavior") Behavior behavior
+        @JsonProperty("behavior") Behavior behavior,
+        @JsonProperty("canMove") boolean canMove
     ) {
         this.id = id;
         this.name = name;
@@ -29,6 +32,7 @@ public class NPC {
         this.behavior = behavior;
         this.questItem = behavior.getQuestItem();
         this.random = new Random();
+        this.canMove = canMove;
         // Room will be resolved later using RoomManager
     }
     
@@ -46,6 +50,9 @@ public class NPC {
     public void resolveRoom(RoomManager roomManager) {
         if (roomId != null && currentRoom == null) {
             this.currentRoom = roomManager.getRoom(roomId);
+            if (this.currentRoom != null) {
+                this.currentRoom.addNPC(this); // Add NPC to the room's NPC list
+            }
         }
     }
 
@@ -75,10 +82,26 @@ public class NPC {
     public String getQuestItem() {
         return questItem;
     }
+    public boolean canMove() {
+        return this.canMove;
+    }
 
     public void moveAround() {
-        // Implementation here
-        List<Room> connectedRooms = currentRoom.getConnectedRooms();
-        currentRoom = connectedRooms.get(random.nextInt(connectedRooms.size()));
-    }
+
+        if (canMove) {
+        List<Room> nextRoom = currentRoom.getConnectedRooms();
+        Room newRoom = nextRoom.get(random.nextInt(nextRoom.size()));
+            this.currentRoom.removeNPC(this);
+            newRoom.addNPC(this);            
+            this.currentRoom = newRoom;
+
+        };
+            
+            
+        }
+
+
 }
+
+
+

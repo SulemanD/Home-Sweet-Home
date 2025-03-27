@@ -11,11 +11,11 @@ public class Main {
         // Load the game data
         RoomManager roomManager = new RoomManager();
         Player player = new Player(roomManager.getRoom("basement"));
-        NPCManager npcManager = new NPCManager(roomManager); // Pass roomManager to NPCManager
-        npcManager.loadNPCs();
+        NPCManager npcManager = new NPCManager(roomManager, player); // Pass roomManager and player to NPCManager
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to the Adventure Game! Type 'help' for commands.");
+        System.out.println("You wake up in a " + player.getCurrentRoom().getName() + " unsure of where you are.");
 
         while (true) {
             System.out.print("> ");
@@ -26,7 +26,7 @@ public class Main {
                 break;
             }
 
-            Verb verb = new Verb(input, player.getCurrentRoom(), player);
+            Verb verb = new Verb(input, player.getCurrentRoom(), player, npcManager);
             verb.doAction();
         }
 

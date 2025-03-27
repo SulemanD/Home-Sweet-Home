@@ -62,23 +62,28 @@ public class Room {
     }
 
     public void addItems(Item item){
-        itemObjects.add(item);
+        if (!itemObjects.contains(item)) {
+            itemObjects.add(item);
+            items.add(item.getId()); // Ensure the ID is added to the string list
+        }
     }
 
     public void removeItems(Item item){
         itemObjects.remove(item);
+        items.remove(item.getId()); // Ensure the ID is also removed from the string list
     }
 
     public void clearItems(){
         itemObjects.clear();
+        items.clear(); // Ensure the string list is also cleared
     }
 
     public List<Item> getItems() {
-        // Convert string IDs to actual Item objects if needed
+        // Ensure itemObjects is populated only once
         if (itemObjects.isEmpty() && items != null) {
             for (String itemId : items) {
                 Item item = RoomManager.getItemById(itemId);
-                if (item != null) {
+                if (item != null && !itemObjects.contains(item)) {
                     itemObjects.add(item);
                 }
             }
@@ -99,12 +104,18 @@ public class Room {
         return npcObjects;
     }
 
-    public void addNpc(NPC npc) {
-        npcObjects.add(npc);
+    public void addNPC(NPC npc) {
+        if (!npcObjects.contains(npc)) {
+            npcObjects.add(npc);
+            npcs.add(npc.getId());
+        }
     }
 
-    public void removeNpc(NPC npc) {
-        npcObjects.remove(npc);
+    public void removeNPC(NPC npc) {
+        if (npcObjects.contains(npc)) {
+            npcObjects.remove(npc);
+            npcs.remove(npc.getId());
+        }
     }
 
     public void clearNpcs() {

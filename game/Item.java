@@ -35,16 +35,26 @@ public class Item {
     }
     
     public boolean useItem(String target) {
-        target = target.toLowerCase();
-        if (canGiveTo.contains(target)) {
-            System.out.println(useEffect.getMessage());
-            return true;
-        }
-        else {
-            System.out.println(message.getMessage("cannot_use"));
+        // Check if the item can be given to the specified target
+        if (target == null || canGiveTo == null) {
             return false;
-            
         }
+        
+        for (String recipient : canGiveTo) {
+            if (recipient.toLowerCase().equals(target.toLowerCase())) {
+                if (useEffect != null) {
+                    System.out.println(useEffect.getMessage());
+                }
+                return true;
+            }
+        }
+        
+        System.out.println(message.getMessage("cannot_use"));
+        return false;
+    }
+
+    public List<String> getCanGiveTo() {
+        return canGiveTo;
     }
 
     public void disableItem() {

@@ -27,6 +27,7 @@ public class RoomManager{
         loadItems();
         loadRoomsWithoutExits();
         assignExits();
+        shuffleItems();
     }
 
     public void loadRoomsWithoutExits(){
@@ -36,7 +37,6 @@ public class RoomManager{
 
             for (Room room : rooms) {
                 roomMap.put(room.getId(), room);
-                System.out.println("Loaded: " + room.getId());
             }
         } catch (IOException e){
             e.printStackTrace();
@@ -77,7 +77,6 @@ public class RoomManager{
 
             for (Item item : itemsList) {
                 itemRegistry.put(item.getId(), item);
-                System.out.println("Loaded item: " + item.getName());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -97,22 +96,23 @@ public class RoomManager{
         return null;
     }
 
-    public void shuffleItems(){
-        List<Item> availabelItems = new ArrayList<>();
+    public void shuffleItems() {
+        List<Item> availableItems = new ArrayList<>();
         // Add all items that are not disabled to the available items list
         for (Item item : itemsList) {
-            if (!item.isDisabled()){
-                availabelItems.add(item);
+            if (!item.isDisabled()) {
+                availableItems.add(item);
             }
         }
         // Shuffle the items order
-        Collections.shuffle(availabelItems, random);
-        // Add the items to the rooms (call shuffleRooms() before this)
+        Collections.shuffle(availableItems, random);
+        // Add the items to the rooms
         int itemIndex = 0;
         for (Room room : rooms) {
-            room.clearItems();
-            if (itemIndex < availabelItems.size()){
-                room.addItems(availabelItems.get(itemIndex));
+            room.clearItems(); // Clear both itemObjects and items
+            if (itemIndex < availableItems.size()) {
+                Item item = availableItems.get(itemIndex);
+                room.addItems(item); // Ensure consistency between itemObjects and items
                 itemIndex++;
             }
         }

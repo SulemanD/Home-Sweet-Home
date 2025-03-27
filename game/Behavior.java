@@ -64,4 +64,8 @@ public abstract class Behavior {
  
     public void onFail() {
     }
+
+    public void interact(Player player) {
+        
+    }
 }
