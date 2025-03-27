@@ -125,6 +125,7 @@ public class RiddleBehavior extends Behavior{
         System.out.println(message.getFormattedMessage("bernard_item_loss", placeholders));
         System.out.println(message.getMessage("rooms_shuffled"));
         cooldown = 3;
+        attempts = 3;
 
         // Shuffle rooms and ensure changes are applied
         roomManager.shuffleRooms();
