@@ -95,10 +95,11 @@ public class Verb {
     }
 
     public void doAction() {
-        if (verb == null) {
+        if (verb == null || target == null || target.isEmpty()) {
             System.out.println("Invalid command, type 'help' for a list of commands");
             return;
         }
+        npcManager.moveNpc();
 
         // List of valid verbs
         Set<String> validVerbs = new HashSet<>(Arrays.asList(
