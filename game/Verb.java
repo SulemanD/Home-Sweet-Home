@@ -95,7 +95,7 @@ public class Verb {
     }
 
     public void doAction() {
-        if (verb == null || target == null || target.isEmpty()) {
+        if (verb == null) {
             System.out.println("Invalid command, type 'help' for a list of commands");
             return;
         }
