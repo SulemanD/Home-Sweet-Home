@@ -33,6 +33,10 @@ public class Exits {
         this.down = down;
     }
 
+    Exits() {
+        // Default constructor for Jackson deserialization
+    }
+
     // String getters - for original IDs from JSON
     public String getNorth() { return north; }
     public String getSouth() { return south; }

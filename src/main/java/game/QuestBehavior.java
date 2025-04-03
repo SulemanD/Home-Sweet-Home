@@ -21,7 +21,7 @@ public class QuestBehavior extends Behavior{
         this.message = new Message("data/messages.json");
     }
 
-    // Keep existing constructor for programmatic creation
+    
     public QuestBehavior(String questItem) {
         super("quest", -1, null, questItem);
         this.questItem = questItem;

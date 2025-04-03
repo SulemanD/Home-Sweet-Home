@@ -23,12 +23,10 @@ public class NPCManager {
         loadNPCs();
     }
 
-    // Static method to get instance (singleton pattern)
     public static NPCManager getInstance() {
         return instance;
     }
 
-    // Static method to get an NPC by ID
     public static NPC getNpcById(String id) {
         if (instance == null || instance.npcs == null) {
             return null;
@@ -61,14 +59,12 @@ public class NPCManager {
     public void loadNPCs() {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            // Load NPCs from JSON
+            
             List<NPC> npcList = objectMapper.readValue(new File("data/npcs.json"), new TypeReference<List<NPC>>() {});
 
             for (NPC npc : npcList) {
-                // Resolve the room ID to an actual Room object
                 npc.resolveRoom(roomManager);
 
-                // Add the NPC to the room's NPC list
                 if (npc.getCurrentRoom() != null) {
                     npc.getCurrentRoom().addNPC(npc);
                 }
@@ -76,10 +72,8 @@ public class NPCManager {
                 // Handle behavior setup
                 if (npc.getBehavior() instanceof RiddleBehavior) {
                     RiddleBehavior riddleBehavior = (RiddleBehavior) npc.getBehavior();
-                    riddleBehavior.loadRiddlesFromJson(); // Ensure riddles are loaded from riddles.json
+                    riddleBehavior.loadRiddlesFromJson(); 
                 }
-
-                // Add the NPC to our list
                 npcs.add(npc);
             }
         } catch (IOException e) {
@@ -87,7 +81,6 @@ public class NPCManager {
         }
     }
 
-    // Get the list of NPCs
     public List<NPC> getNpcs() {
         return npcs;
     }

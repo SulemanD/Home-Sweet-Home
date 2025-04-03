@@ -57,10 +57,9 @@ public class Verb {
 
         if (parts.length == 0) return;
 
-        // List of words to ignore
         Set<String> ignoreWords = new HashSet<>(Arrays.asList("the", "a", "an"));
 
-        // Filter out ignored words
+        
         List<String> filteredParts = new ArrayList<>();
         for (String part : parts) {
             if (!ignoreWords.contains(part)) {
@@ -70,9 +69,8 @@ public class Verb {
 
         if (filteredParts.isEmpty()) return;
 
-        this.verb = filteredParts.get(0); // First word is the verb
+        this.verb = filteredParts.get(0); 
 
-        // Match parsing conditions to verbs in the help output
         switch (verb) {
             case "take":
             case "look":
@@ -82,15 +80,12 @@ public class Verb {
                 }
                 break;
             case "give":
-                // Ensure the format contains "give" and "to"
                 int giveIndex = filteredParts.indexOf("give");
                 int toIndex = filteredParts.indexOf("to");
 
                 if (giveIndex == 0 && toIndex > giveIndex && toIndex < filteredParts.size() - 1) {
-                    // Extract target (everything between "give" and "to")
                     this.target = String.join(" ", filteredParts.subList(1, toIndex)).trim();
 
-                    // Extract npcTarget (everything after "to")
                     this.npcTarget = String.join(" ", filteredParts.subList(toIndex + 1, filteredParts.size())).trim();
                 } else {
                     System.out.println("Invalid format. Use: give <item> to <character>");
@@ -104,7 +99,7 @@ public class Verb {
             case "help":
                 break;
             default:
-                this.verb = null; // Invalid verb
+                this.verb = null; 
         }
     }
 
@@ -112,10 +107,10 @@ public class Verb {
         List<NPC> allNpcs = npcManager.getNpcs();
         for (NPC npc : allNpcs) {
             if (npc.getName().equalsIgnoreCase(npcName) || npc.getName().toLowerCase().contains(npcName.toLowerCase())) {
-                return npc.getId(); // Return the NPC's ID
+                return npc.getId();
             }
         }
-        return null; // Return null if no matching NPC is found
+        return null; 
     }
 
     public void doAction() {
@@ -125,18 +120,15 @@ public class Verb {
         }
         npcManager.moveNpc();
 
-        // List of valid verbs
         Set<String> validVerbs = new HashSet<>(Arrays.asList(
             "take", "give", "go", "look", "talk", "help"
         ));
 
-        // Check if the verb is valid
         if (!validVerbs.contains(verb)) {
             System.out.println("Invalid command, type 'help' for a list of commands");
             return;
         }
 
-        // Perform action based on verb
         switch (verb) {
             case "take":
                 takeAction();
@@ -164,7 +156,6 @@ public class Verb {
                 break;
         }
 
-        // Interact with NPCs after action
         npcManager.interactWithPlayer();
         npcManager.decaCooldownForRiddleBehaviors();
     }
@@ -207,7 +198,6 @@ public class Verb {
             return;
         }
 
-        // Check if the player has the item in their inventory
         Item itemToGive = null;
         for (Item item : player.getInventory()) {
             if (item.getName().equalsIgnoreCase(target)) {
@@ -221,7 +211,6 @@ public class Verb {
             return;
         }
 
-        // Check if the NPC is present in the current room
         NPC recipient = null;
         for (NPC npc : getNPCsInCurrentRoom()) {
             if (npc.getName().equalsIgnoreCase(npcTarget) || npc.getName().toLowerCase().contains(npcTarget.toLowerCase())) {
@@ -234,21 +223,19 @@ public class Verb {
             System.out.println(message.getMessage("ghost_wrong"));
             return;
         }
-
-        // Check if the item can be given to the NPC
+      
         if (!itemToGive.getCanGiveTo().contains(recipient.getId())) {
             System.out.println(message.getMessage("ghost_wrong"));
             return;
         }
 
-        // Perform the give action
         player.removeItemFromInventory(itemToGive);
         itemToGive.disableItem();
         System.out.println(message.getMessage("give_success")
             .replace("{item}", itemToGive.getName())
             .replace("{npc}", recipient.getName()));
 
-        // Trigger NPC behavior if applicable
+       
         if (recipient.getBehavior() instanceof QuestBehavior) {
             ((QuestBehavior) recipient.getBehavior()).onReceiveItem(itemToGive);
         }

@@ -90,6 +90,11 @@ public class RiddleBehavior extends Behavior{
     }
 
     public void interact(Player player){
+        try {
+            Thread.sleep(1000); // Pause for 1 second
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         askRiddle();
     }
 
@@ -124,24 +129,22 @@ public class RiddleBehavior extends Behavior{
     }
 
     public void onMaxAttempts() {
-        // Prepare placeholders for the messages
+       
         Map<String, String> placeholders = new HashMap<>();
-        placeholders.put("item", "some item"); // Replace with actual item if needed
+        placeholders.put("item", "some item"); 
 
-        // Display formatted messages
+    
         System.out.println(message.getFormattedMessage("bernard_item_loss", placeholders));
         System.out.println(message.getMessage("rooms_shuffled"));
         cooldown = COOL_DOWN_TIME;
         attempts = 0;
 
-        // Shuffle rooms and ensure changes are applied
         roomManager.shuffleRooms();
-        roomManager.assignExits(); // Reassign exits after shuffling
     }
 
     public Riddle getCurrentRiddle() {
         if (riddles != null && !riddles.isEmpty()) {
-            return riddles.get(0); // Return the first riddle for simplicity
+            return riddles.get(0);
         }
         return null;
     }

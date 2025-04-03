@@ -34,7 +34,6 @@ public class Message {
             return null;
         }
 
-        // Replace placeholders in the message
         if (placeholders != null) {
             for (Map.Entry<String, String> entry : placeholders.entrySet()) {
                 String placeholder = "{" + entry.getKey() + "}";

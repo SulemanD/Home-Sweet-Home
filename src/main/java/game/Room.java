@@ -28,14 +28,14 @@ public class Room {
     @JsonProperty("shortDesc") String shortDesc, 
     @JsonProperty("items") List<String> items,
     @JsonProperty("npcs") List<String> npcs,
-    @JsonProperty("floor") int floor) { // Added floor parameter
+    @JsonProperty("floor") int floor) { 
         this.id = id;
         this.name = name;
         this.longDesc = longDesc;
         this.shortDesc = shortDesc;
         this.items = items;
         this.npcs = npcs;
-        this.floor = floor; // Initialize floor property
+        this.floor = floor; 
         this.itemObjects = new ArrayList<>();
         this.npcObjects = new ArrayList<>();
         this.exits = null;
@@ -64,22 +64,21 @@ public class Room {
     public void addItems(Item item){
         if (!itemObjects.contains(item)) {
             itemObjects.add(item);
-            items.add(item.getId()); // Ensure the ID is added to the string list
+            items.add(item.getId());
         }
     }
 
     public void removeItems(Item item){
         itemObjects.remove(item);
-        items.remove(item.getId()); // Ensure the ID is also removed from the string list
+        items.remove(item.getId());
     }
 
     public void clearItems(){
         itemObjects.clear();
-        items.clear(); // Ensure the string list is also cleared
+        items.clear(); 
     }
 
     public List<Item> getItems() {
-        // Ensure itemObjects is populated only once
         if (itemObjects.isEmpty() && items != null) {
             for (String itemId : items) {
                 Item item = RoomManager.getItemById(itemId);
@@ -92,7 +91,7 @@ public class Room {
     }
 
     public List<NPC> getNpcs() {
-        // Convert string IDs to actual NPC objects if needed
+    
         if (npcObjects.isEmpty() && npcs != null) {
             for (String npcId : npcs) {
                 NPC npc = NPCManager.getNpcById(npcId);

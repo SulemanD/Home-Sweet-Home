@@ -7,12 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 
 public class Player {
-    private Room currentRoom; // Current room of the player
-    private List<Item> inventory; // List to store items
+    private Room currentRoom; 
+    private List<Item> inventory; 
 
     public Player(@JsonProperty("startingRoom") Room currentRoom) {
         this.currentRoom = currentRoom;
-        this.inventory = new ArrayList<>(); // Initialize inventory
+        this.inventory = new ArrayList<>(); 
     }
 
     public void addItemToInventory(Item item) {

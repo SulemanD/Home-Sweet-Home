@@ -10,13 +10,13 @@ public class NPC {
     private String id;
     private String name;
     private Room currentRoom;
-    private String roomId; // New field to store the room ID from JSON
+    private String roomId; 
     private Behavior behavior;
     private String questItem;
     private Random random;
     private boolean canMove;
 
-    // Constructor for Jackson deserialization
+    
     @JsonCreator
     public NPC(
         @JsonProperty("id") String id,
@@ -27,22 +27,21 @@ public class NPC {
         @JsonProperty("questItem") String questItem) {
         this.id = id;
         this.name = name;
-        this.roomId = roomId; // Store the room ID string
+        this.roomId = roomId; 
         this.behavior = behavior;
         this.questItem = behavior.getQuestItem();
         this.random = new Random();
         this.canMove = canMove;
-        // Room will be resolved later using RoomManager
     }
     
 
 
-    // Method to resolve room from ID
+    
     public void resolveRoom(RoomManager roomManager) {
         if (roomId != null && currentRoom == null) {
             this.currentRoom = roomManager.getRoom(roomId);
             if (this.currentRoom != null) {
-                this.currentRoom.addNPC(this); // Add NPC to the room's NPC list
+                this.currentRoom.addNPC(this); 
             }
         }
     }

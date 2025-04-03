@@ -18,7 +18,6 @@ public class Riddle {
         this.question = question;
         this.answers = answers;
         
-        // Set the first answer as the primary answer if available
         if (answers != null && !answers.isEmpty()) {
             this.answer = answers.get(0);
         } else {
@@ -26,7 +25,7 @@ public class Riddle {
         }
     }
     
-    // Default constructor for direct creation
+    
     public Riddle() {
     }
 
@@ -42,7 +41,6 @@ public class Riddle {
         return this.answers;
     }
     
-    // Check if a provided answer matches any valid answer
     public boolean isCorrectAnswer(String userAnswer) {
         if (answers != null) {
             for (String validAnswer : answers) {
