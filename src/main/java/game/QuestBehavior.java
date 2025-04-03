@@ -30,20 +30,40 @@ public class QuestBehavior extends Behavior{
 
     public void onReceiveItem(Item item){
         if (item.getId().equals(questItem)){
-            onSuccess();
+            onSuccess(item);
         }
         else {
-            onFail();
+            onFail(item);
         }
     }
 
-    public void onSuccess() {
+    public void onSuccess(Item item) {
+        System.out.println(item.getDescription());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.err.println("Thread was interrupted: " + e.getMessage());
+        }
         System.out.println(message.getMessage("ghost_correct"));
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.err.println("Thread was interrupted: " + e.getMessage());
+        }
         System.out.println("Congratulations! You have completed the quest. The game will now exit.");
         System.exit(0);
     }
 
-    public void onFail() {
+    public void onFail(Item item) {
+        System.out.println(item.getDescription());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.err.println("Thread was interrupted: " + e.getMessage());
+        }
         System.out.println(message.getMessage("ghost_wrong"));
     }
 }

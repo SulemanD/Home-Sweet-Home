@@ -2,16 +2,23 @@ package game;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Scanner;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RiddleBehavior extends Behavior{
+
+    int COOL_DOWN_TIME = 3; // Cooldown time in seconds
 
     private List<Riddle> riddles;
     private int maxAttempts;
@@ -124,8 +131,8 @@ public class RiddleBehavior extends Behavior{
         // Display formatted messages
         System.out.println(message.getFormattedMessage("bernard_item_loss", placeholders));
         System.out.println(message.getMessage("rooms_shuffled"));
-        cooldown = 3;
-        attempts = 3;
+        cooldown = COOL_DOWN_TIME;
+        attempts = 0;
 
         // Shuffle rooms and ensure changes are applied
         roomManager.shuffleRooms();

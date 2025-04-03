@@ -1,6 +1,5 @@
 package game;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -24,8 +23,8 @@ public class NPC {
         @JsonProperty("name") String name,
         @JsonProperty("currentRoom") String roomId,
         @JsonProperty("behavior") Behavior behavior,
-        @JsonProperty("canMove") boolean canMove
-    ) {
+        @JsonProperty("canMove") boolean canMove,
+        @JsonProperty("questItem") String questItem) {
         this.id = id;
         this.name = name;
         this.roomId = roomId; // Store the room ID string
@@ -36,15 +35,7 @@ public class NPC {
         // Room will be resolved later using RoomManager
     }
     
-    // Constructor for direct object creation
-    public NPC(String id, String name, Room currentRoom, Behavior behavior) {
-        this.id = id;
-        this.name = name;
-        this.currentRoom = currentRoom;
-        this.behavior = behavior;
-        this.questItem = behavior.getQuestItem();
-        this.random = new Random();
-    }
+
 
     // Method to resolve room from ID
     public void resolveRoom(RoomManager roomManager) {
