@@ -242,6 +242,10 @@ public class Verb {
     }
 
     public void goAction() {
+        if (target == null || target.trim().isEmpty()) {
+            System.out.println("Where do you want to go?");
+            return;
+        }
         Room nextRoom = null;
 
         if (target.contains("north") && (nextRoom = currentRoom.getExits().getNorthRoom()) != null) {
