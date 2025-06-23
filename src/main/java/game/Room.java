@@ -131,12 +131,14 @@ public class Room {
 
     public List<Room> getConnectedRooms() {
         List<Room> rooms = new ArrayList<>();
-        if (exits.getNorthRoom() != null) rooms.add(exits.getNorthRoom());
-        if (exits.getSouthRoom() != null) rooms.add(exits.getSouthRoom());
-        if (exits.getEastRoom() != null) rooms.add(exits.getEastRoom());
-        if (exits.getWestRoom() != null) rooms.add(exits.getWestRoom());
-        if (exits.getUpRoom() != null) rooms.add(exits.getUpRoom());
-        if (exits.getDownRoom() != null) rooms.add(exits.getDownRoom());
+        if (exits != null) {
+            if (exits.getNorthRoom() != null) rooms.add(exits.getNorthRoom());
+            if (exits.getSouthRoom() != null) rooms.add(exits.getSouthRoom());
+            if (exits.getEastRoom() != null) rooms.add(exits.getEastRoom());
+            if (exits.getWestRoom() != null) rooms.add(exits.getWestRoom());
+            if (exits.getUpRoom() != null) rooms.add(exits.getUpRoom());
+            if (exits.getDownRoom() != null) rooms.add(exits.getDownRoom());
+        }
         return rooms;
     }
 }

@@ -77,18 +77,16 @@ public class NPC {
     }
 
     public void moveAround() {
-
-        if (canMove) {
-        List<Room> nextRoom = currentRoom.getConnectedRooms();
-        Room newRoom = nextRoom.get(random.nextInt(nextRoom.size()));
-            this.currentRoom.removeNPC(this);
-            newRoom.addNPC(this);            
-            this.currentRoom = newRoom;
-
-        };
-            
-            
+        if (canMove && currentRoom != null) {
+            List<Room> connectedRooms = currentRoom.getConnectedRooms();
+            if (!connectedRooms.isEmpty()) {
+                Room newRoom = connectedRooms.get(random.nextInt(connectedRooms.size()));
+                this.currentRoom.removeNPC(this);
+                newRoom.addNPC(this);            
+                this.currentRoom = newRoom;
+            }
         }
+    }
 
 
 }

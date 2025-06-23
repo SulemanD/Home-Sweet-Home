@@ -72,7 +72,8 @@ public class NPCManager {
                 // Handle behavior setup
                 if (npc.getBehavior() instanceof RiddleBehavior) {
                     RiddleBehavior riddleBehavior = (RiddleBehavior) npc.getBehavior();
-                    riddleBehavior.loadRiddlesFromJson(); 
+                    riddleBehavior.loadRiddlesFromJson();
+                    riddleBehavior.setGameReferences(roomManager, player, this);
                 }
                 npcs.add(npc);
             }

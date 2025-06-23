@@ -29,6 +29,8 @@ public class RiddleBehavior extends Behavior{
     private Message message;
     private RoomManager roomManager;
     private Scanner scanner;
+    private Player player;
+    private NPCManager npcManager;
 
     // Add JsonCreator constructor for Jackson deserialization from JSON
     @JsonCreator
@@ -43,7 +45,7 @@ public class RiddleBehavior extends Behavior{
         this.riddles = new ArrayList<>(); // Initialize empty list
         this.attempts = 0;
         this.random = new Random();
-        this.roomManager = new RoomManager();
+        this.roomManager = null; // Will be set later
         this.message = new Message("data/messages.json");
         scanner = new Scanner(System.in);
         loadRiddlesFromJson(); // Always load riddles from riddles.json
@@ -56,9 +58,18 @@ public class RiddleBehavior extends Behavior{
         loadRiddlesFromJson();
         this.attempts = 0;
         this.random = new Random();
-        this.roomManager = new RoomManager();
+        this.roomManager = null; // Will be set later
         this.message = new Message("data/messages.json");
         scanner = new Scanner(System.in);
+    }
+    
+    /**
+     * Set the RoomManager, Player, and NPCManager references
+     */
+    public void setGameReferences(RoomManager roomManager, Player player, NPCManager npcManager) {
+        this.roomManager = roomManager;
+        this.player = player;
+        this.npcManager = npcManager;
     }
     
     public void loadRiddlesFromJson(){
@@ -139,7 +150,10 @@ public class RiddleBehavior extends Behavior{
         cooldown = COOL_DOWN_TIME;
         attempts = 0;
 
-        roomManager.shuffleRooms();
+        // Use the complete shuffling method that updates all references
+        if (roomManager != null) {
+            roomManager.shuffleRoomsComplete(player, npcManager);
+        }
     }
 
     public Riddle getCurrentRiddle() {

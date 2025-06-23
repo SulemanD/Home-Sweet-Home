@@ -246,19 +246,26 @@ public class Verb {
             System.out.println("Where do you want to go?");
             return;
         }
+        
+        Exits exits = currentRoom.getExits();
+        if (exits == null) {
+            System.out.println(message.getMessage("no_exit"));
+            return;
+        }
+        
         Room nextRoom = null;
 
-        if (target.contains("north") && (nextRoom = currentRoom.getExits().getNorthRoom()) != null) {
+        if (target.contains("north") && (nextRoom = exits.getNorthRoom()) != null) {
             player.setCurrentRoom(nextRoom);
-        } else if (target.contains("south") && (nextRoom = currentRoom.getExits().getSouthRoom()) != null) {
+        } else if (target.contains("south") && (nextRoom = exits.getSouthRoom()) != null) {
             player.setCurrentRoom(nextRoom);
-        } else if (target.contains("up") && (nextRoom = currentRoom.getExits().getUpRoom()) != null) {
+        } else if (target.contains("up") && (nextRoom = exits.getUpRoom()) != null) {
             player.setCurrentRoom(nextRoom);
-        } else if (target.contains("down") && (nextRoom = currentRoom.getExits().getDownRoom()) != null) {
+        } else if (target.contains("down") && (nextRoom = exits.getDownRoom()) != null) {
             player.setCurrentRoom(nextRoom);
-        } else if (target.contains("east") && (nextRoom = currentRoom.getExits().getEastRoom()) != null) {
+        } else if (target.contains("east") && (nextRoom = exits.getEastRoom()) != null) {
             player.setCurrentRoom(nextRoom);
-        } else if (target.contains("west") && (nextRoom = currentRoom.getExits().getWestRoom()) != null) {
+        } else if (target.contains("west") && (nextRoom = exits.getWestRoom()) != null) {
             player.setCurrentRoom(nextRoom);
         } else {
             System.out.println(message.getMessage("no_exit"));

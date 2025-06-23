@@ -92,12 +92,7 @@ public class RoomManager {
     }
 
     public Room getRoom(String id) {
-        for (Room room : rooms) {
-            if (room.getId().equals(id)) {
-                return room;
-            }
-        }
-        return null;
+        return roomMap.get(id);
     }
 
     public void shuffleItems() {
@@ -120,40 +115,120 @@ public class RoomManager {
     }
 
     public void shuffleRooms() {
+        // Store the original room order and their IDs
         List<Room> preShuffle = new ArrayList<>(rooms);
+        List<String> originalIds = new ArrayList<>();
+        for (Room room : preShuffle) {
+            originalIds.add(room.getId());
+        }
+        
+        // Shuffle the rooms list
         Collections.shuffle(rooms, random);
-
+        
+        // Create a mapping from original room objects to shuffled room objects
         Map<Room, Room> roomMapping = new HashMap<>();
         for (int i = 0; i < preShuffle.size(); i++) {
             roomMapping.put(preShuffle.get(i), rooms.get(i));
         }
-
+        
+        // Update the roomMap to reflect the new room positions
+        roomMap.clear();
+        for (int i = 0; i < rooms.size(); i++) {
+            roomMap.put(originalIds.get(i), rooms.get(i));
+        }
+        
+        // Update exits for each room based on the mapping
         for (int i = 0; i < rooms.size(); i++) {
             Room originalRoom = preShuffle.get(i);
             Room shuffledRoom = rooms.get(i);
             Exits originalExits = originalRoom.getExits();
-            Exits newExits = new Exits();
-
-            if (originalExits.getNorthRoom() != null) {
-                newExits.setNorth(roomMapping.get(originalExits.getNorthRoom()));
+            
+            if (originalExits != null) {
+                Exits newExits = new Exits();
+                
+                // Map each exit to the corresponding shuffled room
+                if (originalExits.getNorthRoom() != null) {
+                    Room mappedNorth = roomMapping.get(originalExits.getNorthRoom());
+                    if (mappedNorth != null) {
+                        newExits.setNorth(mappedNorth);
+                    }
+                }
+                if (originalExits.getSouthRoom() != null) {
+                    Room mappedSouth = roomMapping.get(originalExits.getSouthRoom());
+                    if (mappedSouth != null) {
+                        newExits.setSouth(mappedSouth);
+                    }
+                }
+                if (originalExits.getEastRoom() != null) {
+                    Room mappedEast = roomMapping.get(originalExits.getEastRoom());
+                    if (mappedEast != null) {
+                        newExits.setEast(mappedEast);
+                    }
+                }
+                if (originalExits.getWestRoom() != null) {
+                    Room mappedWest = roomMapping.get(originalExits.getWestRoom());
+                    if (mappedWest != null) {
+                        newExits.setWest(mappedWest);
+                    }
+                }
+                if (originalExits.getUpRoom() != null) {
+                    Room mappedUp = roomMapping.get(originalExits.getUpRoom());
+                    if (mappedUp != null) {
+                        newExits.setUp(mappedUp);
+                    }
+                }
+                if (originalExits.getDownRoom() != null) {
+                    Room mappedDown = roomMapping.get(originalExits.getDownRoom());
+                    if (mappedDown != null) {
+                        newExits.setDown(mappedDown);
+                    }
+                }
+                
+                shuffledRoom.setExits(newExits);
             }
-            if (originalExits.getSouthRoom() != null) {
-                newExits.setSouth(roomMapping.get(originalExits.getSouthRoom()));
-            }
-            if (originalExits.getEastRoom() != null) {
-                newExits.setEast(roomMapping.get(originalExits.getEastRoom()));
-            }
-            if (originalExits.getWestRoom() != null) {
-                newExits.setWest(roomMapping.get(originalExits.getWestRoom()));
-            }
-            if (originalExits.getUpRoom() != null) {
-                newExits.setUp(roomMapping.get(originalExits.getUpRoom()));
-            }
-            if (originalExits.getDownRoom() != null) {
-                newExits.setDown(roomMapping.get(originalExits.getDownRoom()));
-            }
-
-            shuffledRoom.setExits(newExits);
         }
+    }
+    
+    /**
+     * Updates the player's current room reference after room shuffling
+     */
+    public void updatePlayerRoom(Player player) {
+        if (player != null && player.getCurrentRoom() != null) {
+            // Find the room with the same ID as the player's current room
+            String currentRoomId = player.getCurrentRoom().getId();
+            Room newRoom = roomMap.get(currentRoomId);
+            if (newRoom != null) {
+                player.setCurrentRoom(newRoom);
+            }
+        }
+    }
+    
+    /**
+     * Updates all NPC room references after room shuffling
+     */
+    public void updateNPCRooms(NPCManager npcManager) {
+        if (npcManager != null) {
+            for (NPC npc : npcManager.getNpcs()) {
+                if (npc.getCurrentRoom() != null) {
+                    String currentRoomId = npc.getCurrentRoom().getId();
+                    Room newRoom = roomMap.get(currentRoomId);
+                    if (newRoom != null) {
+                        // Remove from old room and add to new room
+                        npc.getCurrentRoom().removeNPC(npc);
+                        newRoom.addNPC(npc);
+                        npc.setCurrentRoom(newRoom);
+                    }
+                }
+            }
+        }
+    }
+    
+    /**
+     * Complete room shuffling process that updates all references
+     */
+    public void shuffleRoomsComplete(Player player, NPCManager npcManager) {
+        shuffleRooms();
+        updatePlayerRoom(player);
+        updateNPCRooms(npcManager);
     }
 }
